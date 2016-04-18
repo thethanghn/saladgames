@@ -1,0 +1,28 @@
+.game-canvas {
+  text-align: left;
+  .dish-item {
+    width: 200px;
+    &:hover {
+      border: 1px solid #eee;
+    }
+  }
+  .grad {
+    width: 80px;
+    height: 110px;
+    max-width: 80px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    &.span2 {
+      width: 160px !important;
+      max-width: 160px !important;
+    }
+  }
+  .selecting {
+    border: 1px solid orange !important;
+  }
+  .actions {
+    button {
+      margin-right: 10px;
+    }
+  }
+}

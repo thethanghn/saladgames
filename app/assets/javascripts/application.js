@@ -15,5 +15,6 @@
 //= require bootstrap-sprockets
 //= require react
 //= require react_ujs
+//= require lodash.min
 //= require components
 //= require_tree .
