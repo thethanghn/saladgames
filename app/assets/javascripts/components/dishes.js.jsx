@@ -14,8 +14,6 @@ var Dishes = React.createClass({
     var gradients = _.filter(allGradients, function(i) {
       return _.includes(dish.gradients, i.id);
     });
-    console.log('renderGradients');
-    console.log(gradients);
     for (var i = 0; i < gradients.length; i++) {
       console.log(i);
       console.log(gradients[i].name);
