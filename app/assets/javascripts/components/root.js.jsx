@@ -257,8 +257,9 @@ var gradients = [
 var Root = React.createClass({
   getInitialState: function() {
     return {
-      showDishes: true,
-      selectedDish: null
+      startPicking: false,
+      showDishes: false,
+      selectedDish: dishes[0]
     };
   },
   propTypes: {
@@ -279,10 +280,17 @@ var Root = React.createClass({
     var selectedDish = this.state.selectedDish;
     return (
       <Arrangements
+          startPicking={this.state.startPicking}
           selectedDish={selectedDish}
           gradients={gradients}
           onBack={this.handleBackPress}/>
     );
+  },
+  handleCloseBeginModal: function() {
+    this.setState({startPicking: true});
+  },
+  renderQuestion: function() {
+    return <BeginModal isOpen={!this.state.startPicking} closeModal={this.handleCloseBeginModal}/>
   },
   render: function() {
     var showDishes = this.state.showDishes;
@@ -292,6 +300,7 @@ var Root = React.createClass({
       <div>
         <h3>{welcome}</h3>
         {showDishes ? this.renderDishes() : this.renderGradients()}
+        {this.renderQuestion()}
       </div>
     );
   }

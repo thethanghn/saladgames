@@ -1,7 +1,32 @@
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
+var questions = [
+  { 
+    id: 1,
+    question: 'I want to replace seared tuna by 2 scoops of tuna flake, would it be possible?',
+    answer: 'We only allow replacing one ingredient with another thus, you can only receive one scoop. The other option is for you to CYO'
+  },
+  { 
+    id: 2,
+    question: 'IF I don\'t want romaine lettuce for my tuna san, but I want spinach do I need to pay an extra?',
+    answer: 'Yes, there will be an extracharge of $1.50'
+  },
+  { 
+    id: 3,
+    question: 'Can I change the seared tuna with tuna flakes and free range egg?',
+    answer: 'We only allow one ingredient to be switched to another if you wish to change one ingredient.'
+  }
+];
+
+var nextTimeAsking = function() {
+  return Math.random() * 10 * 1000;
+}
+var timer = null;
+var interval = null;
+
 var Arrangements = React.createClass({
   propTypes: {
+    startPicking: React.PropTypes.bool,
     selectedDish: React.PropTypes.object,
     gradients: React.PropTypes.array,
     onBack: React.PropTypes.func,
@@ -9,8 +34,48 @@ var Arrangements = React.createClass({
   },
   getInitialState: function() {
     return {
+      showQuestion: false,
+      selectedQuestion: null,
+      askedQuestions: [],
       selectingGradients: []
     }
+  },
+  componentDidMount: function() {
+    console.log('componentDidMount');
+    var parent = this;
+    var action = function() {
+      var ids = _.map(questions, function(q) { return q.id; });
+      var remaining = _.difference(ids, parent.state.askedQuestions);
+      var keepAsking = false;
+      if (remaining.length > 0) {
+        var nextId = remaining[parseInt(Math.random() * remaining.length)];
+        var question = _.find(questions, function(q) { return q.id === nextId; });
+        // mark this question as asked
+        parent.state.askedQuestions.push(nextId);
+        parent.setState({showQuestion: true, selectedQuestion: question});
+        keepAsking = true;
+      } else {
+        window.clearTimeout(timer);
+      }
+
+      if (keepAsking) {
+        timer = setTimeout(function() {
+          console.log('render again in the loop');
+          action();
+        }, nextTimeAsking());
+      }
+    }
+
+    interval = setInterval(function() {
+      if (!parent.props.startPicking) {
+        return false;
+      }
+      timer = setTimeout(function() {
+        console.log('render again');
+        action();
+      }, nextTimeAsking());  
+      window.clearInterval(interval);
+    }, 5000);
   },
   handleDishSelect: function(item, event) {
     if (this.props.onSelect) {
@@ -48,6 +113,10 @@ var Arrangements = React.createClass({
     }
     this.setState({selectingGradients: selectingGradients});
   },
+  closeModal: function() {
+    console.log('modal closing');
+    this.setState({showQuestion: false});
+  },
   renderGradientItems: function(gradients) {
     var selectingGradients = this.state.selectingGradients;
     var items = [];
@@ -64,6 +133,9 @@ var Arrangements = React.createClass({
 
     return items;
   },
+  renderQuestion: function() {
+    return <Modal isOpen={this.state.showQuestion} closeModal={this.closeModal} question={this.state.selectedQuestion}/>
+  },
   render: function() {
     var gradients = this.props.gradients;
     return (
@@ -76,6 +148,7 @@ var Arrangements = React.createClass({
           <button onClick={this.handleHintPress} className="btn btn-info">Hint</button>
           <button onClick={this.handleResetPress} className="btn btn-info">Reset</button>
         </div>
+        {this.renderQuestion()}
       </div>
     );
   }
