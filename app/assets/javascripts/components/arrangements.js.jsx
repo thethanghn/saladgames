@@ -327,22 +327,6 @@ var Arrangements = React.createClass({
 
     return (<table className="table">{items}</table>);
   },
-  renderFlavorItems: function(gradients,start,end) {
-    var selectingGradients = this.state.selectingGradients;
-    var items = [];
-    for (var i = start; i < end; i++) {
-      var grad = gradients[i];
-      var src = ['/assets/images/', _.toLower(grad.name.replace('/', ' ')), '.jpg'].join('');
-      var selecting = _.includes(selectingGradients, grad.id) ? 'selecting' : '';
-      var cls = ['grad-item', 'grad-' + grad.id].join(' ');
-      var item = <div className={cls} key={i} onClick={this.handleGradientSelect.bind(this, grad.id)}>
-                      <p className={['grad', selecting].join(' ')} alt={grad.name} title={grad.name}> {grad.name} </p>
-                    </div>;
-      items.push(item);
-    }
-
-    return items;
-  },
   renderQuestion: function() {
     return <Modal isOpen={this.state.showQuestion} closeModal={this.closeModal} question={this.state.selectedQuestion}/>
   },
