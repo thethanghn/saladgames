@@ -110,7 +110,7 @@ var gradients = [
   },
   {
     id: 26,
-    name: '"French Bean/Snow Peas"'
+    name: 'French Bean/Snow Peas'
   },
   {
     id: 27,
@@ -246,93 +246,120 @@ var gradients = [
   },
   {
     id: 60,
-    name: 'BP'
+    name: 'BP',
+    type: 'flavour'
   },
   {
     id: 61,
-    name: 'WHS'
+    name: 'WHS',
+    type: 'flavour'
   },
   {
     id: 62,
-    name: 'SCC'
+    name: 'SCC',
+    type: 'flavour'
   },
   {
     id: 63,
-    name: 'SL'
+    name: 'SL',
+    type: 'flavour'
   },
   {
     id: 64,
-    name: 'BV'
+    name: 'BV',
+    type: 'flavour'
   },
   {
     id: 65,
-    name: 'JM'
+    name: 'JM',
+    type: 'flavour'
   },
   {
     id: 66,
-    name: 'CBV'
+    name: 'CBV',
+    type: 'flavour'
   },
   {
     id: 67,
-    name: 'TI'
+    name: 'TI',
+    type: 'flavour'
   },
   {
     id: 68,
-    name: 'ASV'
+    name: 'ASV',
+    type: 'flavour'
   },
   {
     id: 69,
-    name: 'LO'
+    name: 'LO',
+    type: 'flavour'
   },
   {
     id: 70,
-    name: 'ISY'
+    name: 'ISY',
+    type: 'flavour'
   },
   {
     id: 71,
-    name: 'SPV'
+    name: 'SPV',
+    type: 'flavour'
   },
   {
     id: 72,
-    name: 'TLG'
+    name: 'TLG',
+    type: 'flavour'
   },
   {
     id: 73,
-    name: 'RV'
+    name: 'RV',
+    type: 'flavour'
   },
   {
     id: 74,
-    name: 'R'
+    name: 'R',
+    type: 'flavour'
   },
   {
     id: 75,
-    name: 'CC'
+    name: 'CC',
+    type: 'flavour'
   },
   {
     id: 76,
-    name: 'JW'
+    name: 'JW',
+    type: 'flavour'
   },
   {
     id: 77,
-    name: 'CG'
+    name: 'CG',
+    type: 'flavour'
+  },
+  {
+    id: 78,
+    name: 'Quinoa Patty'
   }
 ];
 
 var Root = React.createClass({
   getInitialState: function() {
+    return this.defaultState();
+  },
+  defaultState: function() {
     return {
-      showDishes: true,
-      selectedDish: null
+      startPicking: false,
+      stage: 'ingredients',
+      selectedDish: dishes[0]
     };
   },
   propTypes: {
     name: React.PropTypes.string
   },
   handleDishSelect: function(item) {
-    this.setState({showDishes: false, selectedDish: item});
+    this.setState({stage: 'dishes', selectedDish: item});
   },
   handleBackPress: function() {
-    this.setState({showDishes: true, selectedDish: null});
+    this.setState(this.defaultState());
+    // ReactDOM.render(React.createElement(Root, {name: 'Justin'}, document.getElementById('root')));
   },
   renderDishes: function() {
     return (
@@ -340,22 +367,50 @@ var Root = React.createClass({
     );
   },
   renderGradients: function() {
-    var selectedDish = this.state.selectedDish;
-    return (
-      <Arrangements
-          selectedDish={selectedDish}
-          gradients={gradients}
-          onBack={this.handleBackPress}/>
-    );
-  },
-  render: function() {
     var showDishes = this.state.showDishes;
     var selectedDish = this.state.selectedDish;
     var welcome = ['Hi ', this.props.name, ', ', 'please pick the dish', (!showDishes ? [' ', selectedDish.name].join('') : '') ].join('');
     return (
       <div>
         <h3>{welcome}</h3>
-        {showDishes ? this.renderDishes() : this.renderGradients()}
+        <Arrangements
+            startPicking={this.state.startPicking}
+            selectedDish={selectedDish}
+            gradients={gradients}
+            onWinning={this.handleWinning}
+            onBack={this.handleBackPress}/>
+      </div>
+    );
+  },
+  handleWinning: function() {
+    console.log('handleWinning');
+    this.setState({stage: 'finished'});
+  },
+  handleCloseBeginModal: function() {
+    this.setState({startPicking: true});
+  },
+  renderQuestion: function() {
+    return <BeginModal isOpen={!this.state.startPicking} closeModal={this.handleCloseBeginModal}/>
+  },
+  renderStage: function(stage) {
+    switch(stage) {
+      case 'dishes':
+        return this.renderDishes();
+      break;
+      case 'finished':
+        return this.renderFinishedStage();
+      default:
+        return this.renderGradients();
+    }
+  },
+  renderFinishedStage: function() {
+    return <Ending dish={this.state.selectedDish} onBack={this.handleBackPress}/>
+  },
+  render: function() {
+    return (
+      <div>
+        {this.renderStage(this.state.stage)}
+        {this.renderQuestion()}
       </div>
     );
   }

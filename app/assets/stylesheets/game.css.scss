@@ -1,3 +1,6 @@
+$itemWidth: 45px;
+$itemHeight: 50px;
+$smallItemHeight: $itemHeight / 2;
 .game-canvas {
   text-align: left;
   .dish-item {
@@ -7,124 +10,48 @@
     }
   }
   .arrangement-table {
-    
     padding-right: 10px;
     max-width: 816px;
     width: 816px;
-    .grad-item {
-      float: left;
-      width: 45px;
-      height: 50px;
+    .grad-td {
+      padding: 0;
+      margin: 0;
+      border: none;
     }
-    .grad {
-
-      width: 45px;
-      height: 50px;
-      
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      &.span2 {
-        width: 160px !important;
-        max-width: 160px !important;
+    .grad-item {
+      padding: 0;
+      margin: 0;
+      background-color: #fff;
+      border: none;
+      text-align: center;
+      vertical-align: middle;
+      img, span {
+        border: 1px solid #eee;
+        width: 100%;
+        height: 100%;
+      }
+      span {
+        display: block;
       }
     }
     .selecting {
-      border: 1px solid orange !important;
-    }
-    
-  }
-
-  .arrangement-table2 {
-    margin-bottom: 20px;
-    padding-right: 10px;
-    max-width: 1000px;
-    width: 1000px;
-    .left-table2{
-      float:left;
-      width: 630px;
-      max-width: 630px;
-      .grad-item {
-        float: left;
-        width: 45px;
-        height: 50px;
-      }
-      .grad {
-
-        width: 45px;
-        height: 50px;
-        
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-        &.span2 {
-          width: 160px !important;
-          max-width: 160px !important;
-        }
-      }
-      .selecting {
-        border: 1px solid orange !important;
-      }
-      .grad-item.grad-35{
-        height: 100px;
-        width: 90px;
-        img.grad{
-          height: 100px;
-          width: 90px;
-        }
-      }
-    }
-    .right-table2{
-      float:left;
-      max-width: 180px;
-      .grad-item {
-        float: left;
-        width: 45px;
-        height: 25px;
-      }
-      .grad {
-
-        width: 45px;
-        height: 25px;
-        background: white;
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-        &.span2 {
-          width: 160px !important;
-          max-width: 160px !important;
-        }
-      }
-      .selecting {
-        border: 1px solid orange !important;
-      }
-    }
-    .right-table2-rear{
-      float:left;
-      max-width: 45px;
-      margin-left: 45px;
-      .grad-item {
-        float: left;
-        width: 45px;
-        height: 25px;
-      }
-      .grad {
-        background: white;
-        width: 45px;
-        height: 25px;
-        
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-        &.span2 {
-          width: 160px !important;
-          max-width: 160px !important;
-        }
-      }
-      .selecting {
-        border: 1px solid orange !important;
+      img, span {
+        border: 1px solid red !important;
       }
     }
   }
   .actions {
-      button {
-        margin-right: 10px;
-      }
+    button {
+      margin-right: 10px;
     }
+  }
+  .finished-screen {
+    text-align: center;
+    .image {
+      height: 800px;
+    }
+    .btn {
+      margin-top: 20px;
+    }
+  }
 }
