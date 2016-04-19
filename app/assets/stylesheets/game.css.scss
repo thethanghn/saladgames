@@ -7,16 +7,20 @@
     }
   }
   .arrangement-table {
-    margin-bottom: 20px;
+    
+    padding-right: 10px;
+    max-width: 816px;
+    width: 816px;
     .grad-item {
       float: left;
-      width: 80px;
-      height: 110px;
+      width: 45px;
+      height: 50px;
     }
     .grad {
-      width: 80px;
-      height: 110px;
-      max-width: 80px;
+
+      width: 45px;
+      height: 50px;
+      
       border: 1px solid #ccc;
       margin-bottom: 10px;
       &.span2 {
@@ -26,6 +30,96 @@
     }
     .selecting {
       border: 1px solid orange !important;
+    }
+    
+  }
+
+  .arrangement-table2 {
+    margin-bottom: 20px;
+    padding-right: 10px;
+    max-width: 1000px;
+    width: 1000px;
+    .left-table2{
+      float:left;
+      width: 630px;
+      max-width: 630px;
+      .grad-item {
+        float: left;
+        width: 45px;
+        height: 50px;
+      }
+      .grad {
+
+        width: 45px;
+        height: 50px;
+        
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        &.span2 {
+          width: 160px !important;
+          max-width: 160px !important;
+        }
+      }
+      .selecting {
+        border: 1px solid orange !important;
+      }
+      .grad-item.grad-35{
+        height: 100px;
+        width: 90px;
+        img.grad{
+          height: 100px;
+          width: 90px;
+        }
+      }
+    }
+    .right-table2{
+      float:left;
+      max-width: 180px;
+      .grad-item {
+        float: left;
+        width: 45px;
+        height: 25px;
+      }
+      .grad {
+
+        width: 45px;
+        height: 25px;
+        background: white;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        &.span2 {
+          width: 160px !important;
+          max-width: 160px !important;
+        }
+      }
+      .selecting {
+        border: 1px solid orange !important;
+      }
+    }
+    .right-table2-rear{
+      float:left;
+      max-width: 45px;
+      margin-left: 45px;
+      .grad-item {
+        float: left;
+        width: 45px;
+        height: 25px;
+      }
+      .grad {
+        background: white;
+        width: 45px;
+        height: 25px;
+        
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        &.span2 {
+          width: 160px !important;
+          max-width: 160px !important;
+        }
+      }
+      .selecting {
+        border: 1px solid orange !important;
+      }
     }
   }
   .actions {

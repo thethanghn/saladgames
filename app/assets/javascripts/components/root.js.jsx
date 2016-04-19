@@ -3,7 +3,7 @@ var dishes= [
     id: 1,
     name: 'Tuna San',
     image: '/assets/images/tuna san.jpg',
-    gradients: [ 2, 15, 12 ]
+    gradients: [ 2, 15, 12, 70,72,74 ]
   }
 ];
 
@@ -246,12 +246,76 @@ var gradients = [
   },
   {
     id: 60,
-    name: 'Tandoori Chicken'
+    name: 'BP'
   },
   {
     id: 61,
-    name: 'Grilled Chicken'
+    name: 'WHS'
   },
+  {
+    id: 62,
+    name: 'SCC'
+  },
+  {
+    id: 63,
+    name: 'SL'
+  },
+  {
+    id: 64,
+    name: 'BV'
+  },
+  {
+    id: 65,
+    name: 'JM'
+  },
+  {
+    id: 66,
+    name: 'CBV'
+  },
+  {
+    id: 67,
+    name: 'TI'
+  },
+  {
+    id: 68,
+    name: 'ASV'
+  },
+  {
+    id: 69,
+    name: 'LO'
+  },
+  {
+    id: 70,
+    name: 'ISY'
+  },
+  {
+    id: 71,
+    name: 'SPV'
+  },
+  {
+    id: 72,
+    name: 'TLG'
+  },
+  {
+    id: 73,
+    name: 'RV'
+  },
+  {
+    id: 74,
+    name: 'R'
+  },
+  {
+    id: 75,
+    name: 'CC'
+  },
+  {
+    id: 76,
+    name: 'JW'
+  },
+  {
+    id: 77,
+    name: 'CG'
+  }
 ];
 
 var Root = React.createClass({

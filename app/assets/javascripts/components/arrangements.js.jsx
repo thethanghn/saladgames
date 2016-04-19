@@ -48,10 +48,10 @@ var Arrangements = React.createClass({
     }
     this.setState({selectingGradients: selectingGradients});
   },
-  renderGradientItems: function(gradients) {
+  renderGradientItems: function(gradients,start,end) {
     var selectingGradients = this.state.selectingGradients;
     var items = [];
-    for (var i = 0; i < gradients.length; i++) {
+    for (var i = start; i < end; i++) {
       var grad = gradients[i];
       var src = ['/assets/images/', _.toLower(grad.name.replace('/', ' ')), '.jpg'].join('');
       var selecting = _.includes(selectingGradients, grad.id) ? 'selecting' : '';
@@ -64,12 +64,39 @@ var Arrangements = React.createClass({
 
     return items;
   },
+  renderFlavorItems: function(gradients,start,end) {
+    var selectingGradients = this.state.selectingGradients;
+    var items = [];
+    for (var i = start; i < end; i++) {
+      var grad = gradients[i];
+      var src = ['/assets/images/', _.toLower(grad.name.replace('/', ' ')), '.jpg'].join('');
+      var selecting = _.includes(selectingGradients, grad.id) ? 'selecting' : '';
+      var cls = ['grad-item', 'grad-' + grad.id].join(' ');
+      var item = <div className={cls} key={i} onClick={this.handleGradientSelect.bind(this, grad.id)}>
+                      <p className={['grad', selecting].join(' ')} alt={grad.name} title={grad.name}> {grad.name} </p>
+                    </div>;
+      items.push(item);
+    }
+
+    return items;
+  },
   render: function() {
     var gradients = this.props.gradients;
     return (
       <div>
         <div className="arrangement-table row">
-          {this.renderGradientItems(gradients)}
+          {this.renderGradientItems(gradients,0,34)}
+        </div>
+        <div className="arrangement-table2 row">
+          <div className="left-table2">
+            {this.renderGradientItems(gradients,34,59)}
+          </div>
+          <div className="right-table2">
+            {this.renderFlavorItems(gradients,59,75)}
+          </div>
+          <div className="right-table2-rear">
+            {this.renderFlavorItems(gradients,75,77)}
+          </div>
         </div>
         <div className="actions">
           <button onClick={this.handleBackPress} className="btn btn-success">Back to Dish Select</button>
