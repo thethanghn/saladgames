@@ -3,18 +3,53 @@ var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimation
 var questions = [
   { 
     id: 1,
-    question: 'I want to replace seared tuna by 2 scoops of tuna flake, would it be possible?',
-    answer: 'We only allow replacing one ingredient with another thus, you can only receive one scoop. The other option is for you to CYO'
+    question: 'I want to replace seared tuna with 2 scoops of tuna flakes, would it be possible?',
+    choices: [
+      { id: 1, text: 'No you cannot replace any ingredients for signature items' },
+      { id: 2, text: 'Yes it is possible but we can only give you 1 scoop' },
+      { id: 3, text: 'Yes it is possible with no charge' }
+    ],
+    answer: 2
   },
   { 
     id: 2,
-    question: 'IF I don\'t want romaine lettuce for my tuna san, but I want spinach do I need to pay an extra?',
-    answer: 'Yes, there will be an extracharge of $1.50'
+    question: 'If I want baby spinach and not romaine lettuce for tuna san salad do I have to pay extra?',
+    choices: [
+      { id: 1, text: 'Yes' },
+      { id: 2, text: 'No' },
+      { id: 3, text: 'No you cannot replace any ingredients for signature items' }
+    ],
+    answer: 1
   },
   { 
     id: 3,
-    question: 'Can I change the seared tuna with tuna flakes and free range egg?',
-    answer: 'We only allow one ingredient to be switched to another if you wish to change one ingredient.'
+    question: 'Can I split my Tuna San to half of it as a wrap?',
+    choices: [
+      { id: 1, text: 'Yes with an additional charge of $2 for the tortilla wrap' },
+      { id: 2, text: 'No we do not do that' },
+      { id: 3, text: 'Yes. Just pay for the price of the salad' }
+    ],
+    answer: 1
+  },
+  { 
+    id: 4,
+    question: 'Can I have an extra breadsticks?',
+    choices: [
+      { id: 1, text: 'Yes with an additional charge of $0.50' },
+      { id: 2, text: 'No. Strictly 1 breadstick per salad or wrap' },
+      { id: 3, text: 'Only if you purchase a soup with your salad' }
+    ],
+    answer: 1
+  },
+  { 
+    id: 5,
+    question: 'Are the breadsticks and crackers gluten-free or vegetarian?',
+    choices: [
+      { id: 1, text: 'They are gluten-free and vegetarian' },
+      { id: 2, text: 'They are not gluten-free and non-vegetarian' },
+      { id: 3, text: 'They are vegetarian not VEGAN and not gluten-free' }
+    ],
+    answer: 3
   }
 ];
 
@@ -42,32 +77,26 @@ var Arrangements = React.createClass({
   },
   componentDidMount: function() {
     console.log('componentDidMount');
+    this.triggerQuestion();
+  },
+  triggerQuestion: function() {
     var parent = this;
     var action = function() {
       var ids = _.map(questions, function(q) { return q.id; });
       var remaining = _.difference(ids, parent.state.askedQuestions);
-      var keepAsking = false;
       if (remaining.length > 0) {
         var nextId = remaining[parseInt(Math.random() * remaining.length)];
         var question = _.find(questions, function(q) { return q.id === nextId; });
         // mark this question as asked
         parent.state.askedQuestions.push(nextId);
         parent.setState({showQuestion: true, selectedQuestion: question});
-        keepAsking = true;
       } else {
         window.clearTimeout(timer);
-      }
-
-      if (keepAsking) {
-        timer = setTimeout(function() {
-          console.log('render again in the loop');
-          action();
-        }, nextTimeAsking());
       }
     }
 
     interval = setInterval(function() {
-      if (!parent.props.startPicking) {
+      if (!parent.props.startPicking || parent.state.showQuestion) {
         return false;
       }
       timer = setTimeout(function() {
@@ -115,7 +144,10 @@ var Arrangements = React.createClass({
   },
   closeModal: function() {
     console.log('modal closing');
-    this.setState({showQuestion: false});
+    var parent = this;
+    this.setState({showQuestion: false, selectedQuestion: null}, function() {
+      parent.triggerQuestion();
+    });
   },
   renderGradientItems: function(gradients) {
     var selectingGradients = this.state.selectingGradients;
