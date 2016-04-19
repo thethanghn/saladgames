@@ -65,7 +65,8 @@ var Arrangements = React.createClass({
     selectedDish: React.PropTypes.object,
     gradients: React.PropTypes.array,
     onBack: React.PropTypes.func,
-    onSelect: React.PropTypes.func
+    onSelect: React.PropTypes.func,
+    onWinning: React.PropTypes.func
   },
   getInitialState: function() {
     return {
@@ -138,7 +139,7 @@ var Arrangements = React.createClass({
     }
     var result = this.props.selectedDish.gradients;
     if (selectingGradients.length == result.length && _.difference(selectingGradients, result).length == 0) {
-      alert('You won');
+      this.props.onWinning();
     }
     this.setState({selectingGradients: selectingGradients});
   },
@@ -176,7 +177,6 @@ var Arrangements = React.createClass({
           {this.renderGradientItems(gradients)}
         </div>
         <div className="actions">
-          <button onClick={this.handleBackPress} className="btn btn-success">Back to Dish Select</button>
           <button onClick={this.handleHintPress} className="btn btn-info">Hint</button>
           <button onClick={this.handleResetPress} className="btn btn-info">Reset</button>
         </div>

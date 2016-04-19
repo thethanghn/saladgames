@@ -29,8 +29,14 @@
     }
   }
   .actions {
-      button {
-        margin-right: 10px;
-      }
+    button {
+      margin-right: 10px;
     }
+  }
+  .finished-screen {
+    text-align: center;
+    .btn {
+      margin-top: 20px;
+    }
+  }
 }
