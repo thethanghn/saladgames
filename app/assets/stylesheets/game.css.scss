@@ -25,12 +25,18 @@
       }
     }
     .selecting {
-      border: 1px solid orange !important;
+      border: 1px solid red !important;
     }
   }
   .actions {
-      button {
-        margin-right: 10px;
-      }
+    button {
+      margin-right: 10px;
     }
+  }
+  .finished-screen {
+    text-align: center;
+    .btn {
+      margin-top: 20px;
+    }
+  }
 }

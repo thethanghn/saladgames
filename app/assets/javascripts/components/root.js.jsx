@@ -256,19 +256,24 @@ var gradients = [
 
 var Root = React.createClass({
   getInitialState: function() {
+    return this.defaultState();
+  },
+  defaultState: function() {
     return {
-      showDishes: true,
-      selectedDish: null
+      startPicking: false,
+      stage: 'ingredients',
+      selectedDish: dishes[0]
     };
   },
   propTypes: {
     name: React.PropTypes.string
   },
   handleDishSelect: function(item) {
-    this.setState({showDishes: false, selectedDish: item});
+    this.setState({stage: 'dishes', selectedDish: item});
   },
   handleBackPress: function() {
-    this.setState({showDishes: true, selectedDish: null});
+    this.setState(this.defaultState());
+    // ReactDOM.render(React.createElement(Root, {name: 'Justin'}, document.getElementById('root')));
   },
   renderDishes: function() {
     return (
@@ -276,22 +281,50 @@ var Root = React.createClass({
     );
   },
   renderGradients: function() {
-    var selectedDish = this.state.selectedDish;
-    return (
-      <Arrangements
-          selectedDish={selectedDish}
-          gradients={gradients}
-          onBack={this.handleBackPress}/>
-    );
-  },
-  render: function() {
     var showDishes = this.state.showDishes;
     var selectedDish = this.state.selectedDish;
     var welcome = ['Hi ', this.props.name, ', ', 'please pick the dish', (!showDishes ? [' ', selectedDish.name].join('') : '') ].join('');
     return (
       <div>
         <h3>{welcome}</h3>
-        {showDishes ? this.renderDishes() : this.renderGradients()}
+        <Arrangements
+            startPicking={this.state.startPicking}
+            selectedDish={selectedDish}
+            gradients={gradients}
+            onWinning={this.handleWinning}
+            onBack={this.handleBackPress}/>
+      </div>
+    );
+  },
+  handleWinning: function() {
+    console.log('handleWinning');
+    this.setState({stage: 'finished'});
+  },
+  handleCloseBeginModal: function() {
+    this.setState({startPicking: true});
+  },
+  renderQuestion: function() {
+    return <BeginModal isOpen={!this.state.startPicking} closeModal={this.handleCloseBeginModal}/>
+  },
+  renderStage: function(stage) {
+    switch(stage) {
+      case 'dishes':
+        return this.renderDishes();
+      break;
+      case 'finished':
+        return this.renderFinishedStage();
+      default:
+        return this.renderGradients();
+    }
+  },
+  renderFinishedStage: function() {
+    return <Ending dish={this.state.selectedDish} onBack={this.handleBackPress}/>
+  },
+  render: function() {
+    return (
+      <div>
+        {this.renderStage(this.state.stage)}
+        {this.renderQuestion()}
       </div>
     );
   }
