@@ -1,3 +1,6 @@
+$itemWidth: 45px;
+$itemHeight: 50px;
+$smallItemHeight: $itemHeight / 2;
 .game-canvas {
   text-align: left;
   .dish-item {
@@ -7,25 +10,34 @@
     }
   }
   .arrangement-table {
-    margin-bottom: 20px;
-    .grad-item {
-      float: left;
-      width: 80px;
-      height: 110px;
+    padding-right: 10px;
+    max-width: 816px;
+    width: 816px;
+    .grad-td {
+      padding: 0;
+      margin: 0;
+      border: none;
     }
-    .grad {
-      width: 80px;
-      height: 110px;
-      max-width: 80px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      &.span2 {
-        width: 160px !important;
-        max-width: 160px !important;
+    .grad-item {
+      padding: 0;
+      margin: 0;
+      background-color: #fff;
+      border: none;
+      text-align: center;
+      vertical-align: middle;
+      img, span {
+        border: 1px solid #eee;
+        width: 100%;
+        height: 100%;
+      }
+      span {
+        display: block;
       }
     }
     .selecting {
-      border: 1px solid red !important;
+      img, span {
+        border: 1px solid red !important;
+      }
     }
   }
   .actions {
@@ -35,6 +47,9 @@
   }
   .finished-screen {
     text-align: center;
+    .image {
+      height: 800px;
+    }
     .btn {
       margin-top: 20px;
     }

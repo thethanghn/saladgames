@@ -168,7 +168,7 @@ var tileConfig = [
 ];
 
 var SCREEN_W = 1140;
-var CELL_W = parseInt(SCREEN_W / 20);
+var CELL_W = parseInt(1140 / 20);
 var CELL_H = parseInt(CELL_W * 3 / 4);
 
 var nextTimeAsking = function() {
