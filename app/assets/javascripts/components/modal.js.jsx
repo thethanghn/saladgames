@@ -66,7 +66,7 @@ var Modal = React.createClass({
                   <h4 className="modal-title" id="myModalLabel">Salad Bar Arrangement</h4>
                 </div>
                 <div className="modal-body">
-                  <h4>{question.question}</h4>
+                  <h4>Customer: {question.question}</h4>
                   <div ref='answerList'>
                     {this.renderChoices(question.choices)}
                     {this.renderAnsweringState(this.state.answeringState)}

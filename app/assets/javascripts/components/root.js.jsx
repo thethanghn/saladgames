@@ -369,7 +369,7 @@ var Root = React.createClass({
   renderGradients: function() {
     var showDishes = this.state.showDishes;
     var selectedDish = this.state.selectedDish;
-    var welcome = ['Hi ', this.props.name, ', ', 'please pick the dish', (!showDishes ? [' ', selectedDish.name].join('') : '') ].join('');
+    var welcome = ['Please pick the ingredients to create the ', (!showDishes ? [' ', selectedDish.name].join('') : '') ].join('');
     return (
       <div>
         <h3>{welcome}</h3>

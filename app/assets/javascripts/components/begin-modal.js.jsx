@@ -24,7 +24,7 @@ var BeginModal = React.createClass({
                   <h4 className="modal-title" id="myModalLabel">Salad Bar Arrangement Game</h4>
                 </div>
                 <div className="modal-body">
-                  <h4>Could I have a Tuna San Salad please?</h4>
+                  <h4>Customer: Can I have a Tuna San Salad, please?</h4>
                 </div>
                 <div className="modal-footer">
                   <button className="btn btn-primary" type="button" onClick={this.handleCloseModal}>Yes!</button>
